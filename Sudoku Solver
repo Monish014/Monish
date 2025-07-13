@@ -1,0 +1,117 @@
+def sudoku():
+
+    f=[]
+
+    for j in range(9):
+
+        d=[] 
+
+        for i in range(9):
+
+            di=int(input())
+
+            d.append(di)
+
+        f.append(d)
+
+    return f    
+
+
+
+
+
+
+
+puzzle=sudoku()
+
+for i in range(9):
+
+    for j in range(9):
+
+        print(puzzle[i][j],end=" ")
+
+    print()    
+
+
+
+
+
+def is_valid(puz,row,col,guess):
+
+    for i in range(9):
+
+        if i!=col:
+
+            if puz[row][i]==guess:
+
+                return False
+
+    for j in range(9):
+
+        if j!=row:
+
+            if puz[j][col]==guess:
+
+                return False
+
+    bl_row=(row//3)*3
+
+    bl_col=(col//3)*3
+
+    for a in range(3):
+
+        for b in range(3):
+
+            if puz[a+bl_row][b+bl_col]==guess:
+
+                return False
+
+    return True
+
+def print_board(p):
+
+    for i in range(9):
+
+        for j in range(9):
+
+            print(p[i][j],end=" ")
+
+        print()
+
+    print()
+
+
+
+def solve(puzzle):
+
+    for i in range(9):
+
+        for j in range(9):
+
+            if puzzle[i][j]==0:
+
+                for g in range(1,10):
+
+                    if is_valid(puzzle,i,j,g):
+
+                        puzzle[i][j]=g
+
+                        
+
+                        if solve(puzzle):
+
+                            return True
+
+                        puzzle[i][j]=0
+
+                return False
+
+    return True
+
+
+
+    
+
+solve(puzzle)
+
+print_board(puzzle)
